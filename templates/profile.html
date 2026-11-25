@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}Profile{% endblock %}
+
+{% block content %}
+<h1>Profile</h1>
+<p>Username: {{ user.username }}</p>
+<p>Email: {{ user.email }}</p>
+<p>Registration date: {{ user.date_joined|date:"M d, Y H:i" }}</p>
+
+<p><a href="{% url 'password_change' %}">Change password</a></p>
+
+<h2>My notes</h2>
+<ul>
+    {% for note in notes %}
+        <li>
+            <strong>{{ note.title }}</strong>
+            <small>{{ note.created_at|date:"M d, Y H:i" }}</small>
+            <p>{{ note.content }}</p>
+        </li>
+    {% empty %}
+        <li>No notes yet.</li>
+    {% endfor %}
+</ul>
+<a href="{% url 'note_create' %}">Add note</a>
+{% endblock %}
